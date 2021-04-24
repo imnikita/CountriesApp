@@ -12,8 +12,7 @@ class RegionCell: UITableViewCell {
     
     static let reuseId = "regionCellID"
     var collectionView: UICollectionView!
-    
-    var delegate: FetchRegionsDelegate?
+    var callback : ((String) -> ())?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -53,7 +52,7 @@ extension RegionCell: UICollectionViewDelegate, UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let region = regions[indexPath.item].regionName
-        delegate?.fetchByRegions(regionName: region)
+        let regionName = regions[indexPath.item].regionName.lowercased()
+        callback?(regionName)
     }
 }

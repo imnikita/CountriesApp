@@ -7,9 +7,9 @@
 
 import UIKit
 
-protocol FetchRegionsDelegate {
-    func fetchByRegions(regionName: String)
-}
+//protocol FetchRegionsDelegate {
+//    func fetchByRegions(regionName: String)
+//}
 
 
 class RegionsAndCountriesTableVC: UITableViewController {
@@ -43,12 +43,13 @@ class RegionsAndCountriesTableVC: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: RegionCell.reuseId, for: indexPath) as! RegionCell
-            cell.delegate = self
+            cell.callback = { regionName in
+                self.fetchByRegions(regionName: regionName)
+                tableView.reloadData()
+            }
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: CountryCell.reuseId, for: indexPath) as! CountryCell
-            tableView.delegate = self
-            tableView.dataSource = self
             cell.textLabel?.text = countries[indexPath.row].name
             return cell
         }
@@ -74,11 +75,7 @@ class RegionsAndCountriesTableVC: UITableViewController {
             }
         }
     }
-}
 
- // MARK: - FetchRegionsDelegate extension
-
-extension RegionsAndCountriesTableVC: FetchRegionsDelegate {
     func fetchByRegions(regionName: String) {
         if regionName == "all" {
             countries.removeAll()
