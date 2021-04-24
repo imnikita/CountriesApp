@@ -8,18 +8,16 @@
 import UIKit
 
 
-class RegionCell: UITableViewCell, FetchRegionsDelegate {
+class RegionCell: UITableViewCell {
     
     static let reuseId = "regionCellID"
     var collectionView: UICollectionView!
-    var tableViewManager = RegionsAndCountriesTableVC()
-    var selectedRegion: String?
-
+    
+    var delegate: FetchRegionsDelegate?
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureCollectionView()
-        tableViewManager.delegate = self
-        
     }
     
     required init?(coder: NSCoder) {
@@ -55,7 +53,7 @@ extension RegionCell: UICollectionViewDelegate, UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        tableViewManager.fetchByRegions(regionName: (regions[indexPath.item].regionName).lowercased())
-        tableViewManager.tableView.reloadData()
+        let region = regions[indexPath.item].regionName
+        delegate?.fetchByRegions(regionName: region)
     }
 }

@@ -1,5 +1,5 @@
 //
-//  CountrieCell.swift
+//  CountryCell.swift
 //  CountriesApp
 //
 //  Created by Nikita Popov on 21.04.2021.
