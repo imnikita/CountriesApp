@@ -23,14 +23,17 @@ class CountryVC: UIViewController {
         setupUI()
     }
     
+    
     func fetchCountry(countryName: String) {
         let url = "https://restcountries-v1.p.rapidapi.com/name/\(countryName)/?rapidapi-key=3f9506a888msh18ac831a2e2504dp1efc50jsn740844e032dd"
         
         fetchGenericJSONData(urlString: url) { (country: [Country]?, error) in
+            
             guard let country = country?.first else { return }
-            print(country)
             DispatchQueue.main.async {
+                
                 self.navigationItem.title = country.name
+                
                 self.capitalLabel.text = "Capital: \(country.capital)"
                 self.populationLabel.text = "Population: \(country.population) people."
                 if country.borders.isEmpty {
@@ -53,7 +56,7 @@ class CountryVC: UIViewController {
         
         countryView.addSubview(capitalLabel)
         capitalLabel.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 20)
-        capitalLabel.anchor(top: view.topAnchor, leading: countryView.leadingAnchor, bottom: nil, trailing: countryView.trailingAnchor, padding: .init(top: 150, left: 5, bottom: 0, right: 5), size: CGSize.init(width: countryView.frame.width, height: 80))
+        capitalLabel.anchor(top: view.topAnchor, leading: countryView.leadingAnchor, bottom: nil, trailing: countryView.trailingAnchor, padding: .init(top: 150, left: 22, bottom: 0, right: 5), size: CGSize.init(width: countryView.frame.width, height: 80))
         
         countryView.addSubview(populationLabel)
         populationLabel.anchor(top: capitalLabel.bottomAnchor, leading: capitalLabel.leadingAnchor, bottom: nil, trailing: capitalLabel.trailingAnchor)
@@ -76,5 +79,5 @@ class CountryVC: UIViewController {
             $0.font = UIFont(name: "AppleSDGothicNeo-SemiBold", size: 20)
         }
     }
-
+    
 }

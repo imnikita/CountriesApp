@@ -17,3 +17,9 @@ func createThreeColumnFlowLayout(in view: UIView) -> UICollectionViewFlowLayout 
     
     return flowLayout
 }
+
+func presentAlert(viewController: UIViewController, title: String, message: String) {
+    let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+    alert.addAction(UIAlertAction(title: "Ok", style: .default))
+    viewController.present(alert, animated: true, completion: nil)
+}

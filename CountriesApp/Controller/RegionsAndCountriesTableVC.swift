@@ -15,16 +15,15 @@ class RegionsAndCountriesTableVC: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         tableView.register(CountryCell.self, forCellReuseIdentifier: CountryCell.reuseId)
         tableView.register(RegionCell.self, forCellReuseIdentifier: RegionCell.reuseId)
         fetchInitialData()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        tableView.reloadData()
-    }
+//
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        tableView.reloadData()
+//    }
 
     // MARK: - Table view data source
 
@@ -71,10 +70,14 @@ class RegionsAndCountriesTableVC: UITableViewController {
     func fetchInitialData() {
         let url = "https://restcountries-v1.p.rapidapi.com/all/?rapidapi-key=3f9506a888msh18ac831a2e2504dp1efc50jsn740844e032dd"
         fetchGenericJSONData(urlString: url) { (countries: [Country]? , error) in
-            guard let safeCountries = countries else { return }
-            self.countries = safeCountries
-            DispatchQueue.main.async {
-                self.tableView.reloadSections(IndexSet(integer: 1), with: .right)
+            if error != nil {
+                presentAlert(viewController: self, title: "Ooops!", message: error!.localizedDescription)
+            } else {
+                guard let safeCountries = countries else { return }
+                self.countries = safeCountries
+                DispatchQueue.main.async {
+                    self.tableView.reloadSections(IndexSet(integer: 1), with: .right)
+                }
             }
         }
     }
@@ -87,10 +90,14 @@ class RegionsAndCountriesTableVC: UITableViewController {
             countries.removeAll()
             let url = "https://restcountries-v1.p.rapidapi.com/region/\(regionName)/?rapidapi-key=3f9506a888msh18ac831a2e2504dp1efc50jsn740844e032dd"
             fetchGenericJSONData(urlString: url) { (countries: [Country]?, error) in
-                guard let safeCountriesByRegion = countries else { return }
-                self.countries = safeCountriesByRegion
-                DispatchQueue.main.async {
-                    self.tableView.reloadSections(IndexSet(integer: 1), with: .right)
+                if error != nil {
+                    presentAlert(viewController: self, title: "Ooops!", message: error!.localizedDescription)
+                } else {
+                    guard let safeCountriesByRegion = countries else { return }
+                    self.countries = safeCountriesByRegion
+                    DispatchQueue.main.async {
+                        self.tableView.reloadSections(IndexSet(integer: 1), with: .right)
+                    }
                 }
             }
         }

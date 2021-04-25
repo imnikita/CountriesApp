@@ -8,7 +8,8 @@
 import Foundation
 
 func fetchGenericJSONData<T: Decodable>(urlString: String, completion: @escaping (T?, Error?) -> ()){
-    guard let safeURL = URL(string: urlString) else { return }
+    guard let adjustedString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else { return }
+    guard let safeURL = URL(string: adjustedString) else { return }
     URLSession.shared.dataTask(with: safeURL) { (data, response, error) in
         if let error = error{
             print("Error in API call: ", error)
