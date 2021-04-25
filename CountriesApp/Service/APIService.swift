@@ -7,6 +7,8 @@
 
 import Foundation
 
+let apiKey = "API-Key"
+
 func fetchGenericJSONData<T: Decodable>(urlString: String, completion: @escaping (T?, Error?) -> ()){
     guard let adjustedString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else { return }
     guard let safeURL = URL(string: adjustedString) else { return }

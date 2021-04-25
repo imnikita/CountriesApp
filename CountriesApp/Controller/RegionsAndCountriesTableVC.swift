@@ -62,13 +62,15 @@ class RegionsAndCountriesTableVC: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = CountryVC()
         vc.fetchCountry(countryName: countries[indexPath.row].name)
+        vc.navigationItem.title = countries[indexPath.row].name
+        vc.showLoadingView()
         navigationController?.pushViewController(vc, animated: true)
     }
     
     // MARK: - FetchRequests methods
     
     func fetchInitialData() {
-        let url = "https://restcountries-v1.p.rapidapi.com/all/?rapidapi-key=3f9506a888msh18ac831a2e2504dp1efc50jsn740844e032dd"
+        let url = "https://restcountries-v1.p.rapidapi.com/all/?rapidapi-key=\(apiKey)"
         fetchGenericJSONData(urlString: url) { (countries: [Country]? , error) in
             if error != nil {
                 presentAlert(viewController: self, title: "Ooops!", message: error!.localizedDescription)
@@ -89,7 +91,7 @@ class RegionsAndCountriesTableVC: UITableViewController {
             fetchInitialData()
         } else {
             countries.removeAll()
-            let url = "https://restcountries-v1.p.rapidapi.com/region/\(regionName)/?rapidapi-key=3f9506a888msh18ac831a2e2504dp1efc50jsn740844e032dd"
+            let url = "https://restcountries-v1.p.rapidapi.com/region/\(regionName)/?rapidapi-key=\(apiKey)"
             fetchGenericJSONData(urlString: url) { (countries: [Country]?, error) in
                 if error != nil {
                     presentAlert(viewController: self, title: "Ooops!", message: error!.localizedDescription)

@@ -13,7 +13,7 @@ struct RegionsHeader {
 }
 
 let regions = [
-    RegionsHeader(regionImage: UIImage(named: "Mercator_projection_SW")!, regionName: "All"),
+    RegionsHeader(regionImage: UIImage(named: "world-map")!, regionName: "All"),
     RegionsHeader(regionImage: UIImage(named: "Africa_(orthographic_projection)")!, regionName: "Africa"),
     RegionsHeader(regionImage: UIImage(named: "Americas_(orthographic_projection)")!, regionName: "Americas"),
     RegionsHeader(regionImage: UIImage(named: "Asia_(orthographic_projection)")!, regionName: "Asia"),

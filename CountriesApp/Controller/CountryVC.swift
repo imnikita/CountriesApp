@@ -20,20 +20,23 @@ class CountryVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.navigationBar.prefersLargeTitles = true
         setupUI()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     
     func fetchCountry(countryName: String) {
-        let url = "https://restcountries-v1.p.rapidapi.com/name/\(countryName)/?rapidapi-key=3f9506a888msh18ac831a2e2504dp1efc50jsn740844e032dd"
+        let url = "https://restcountries-v1.p.rapidapi.com/name/\(countryName)/?rapidapi-key=\(apiKey)"
         fetchGenericJSONData(urlString: url) { (country: [Country]?, error) in
             guard let country = country?.first else { return }
             
             DispatchQueue.main.async {
-                self.navigationItem.title = country.name
                 self.capitalLabel.text = "Capital: \(country.capital)"
-                self.populationLabel.text = "Population: \(country.population) people."
+                self.populationLabel.text = "Population: \(country.population.formattedWithSeparator) people."
                 if country.borders.isEmpty {
                     self.bordersLabel.text = "Borders with: there are no land borders."
                 } else {
@@ -45,6 +48,7 @@ class CountryVC: UIViewController {
                 self.timeZoneLabel.text =
                     "Time zones: \((country.timezones.map{$0}).joined(separator: ", "))."
             }
+            self.dismissLoadingView()
         }
     }
     
