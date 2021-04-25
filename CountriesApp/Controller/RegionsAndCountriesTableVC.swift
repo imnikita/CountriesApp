@@ -19,22 +19,19 @@ class RegionsAndCountriesTableVC: UITableViewController {
         tableView.register(RegionCell.self, forCellReuseIdentifier: RegionCell.reuseId)
         fetchInitialData()
     }
-//
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        tableView.reloadData()
-//    }
-
+    
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
-
+    
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         section == 0 ? 1 : countries.count
     }
-
+    
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: RegionCell.reuseId, for: indexPath) as! RegionCell
@@ -51,21 +48,24 @@ class RegionsAndCountriesTableVC: UITableViewController {
         }
     }
     
+    
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         section == 0 ?  "Regions" : regionName?.uppercased() ?? "All countries"
     }
     
+    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         indexPath.section == 0 ? 250 : 45
     }
+    
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = CountryVC()
         vc.fetchCountry(countryName: countries[indexPath.row].name)
         navigationController?.pushViewController(vc, animated: true)
     }
-
-    // MARK: - FetchRequests
+    
+    // MARK: - FetchRequests methods
     
     func fetchInitialData() {
         let url = "https://restcountries-v1.p.rapidapi.com/all/?rapidapi-key=3f9506a888msh18ac831a2e2504dp1efc50jsn740844e032dd"
@@ -81,7 +81,8 @@ class RegionsAndCountriesTableVC: UITableViewController {
             }
         }
     }
-
+    
+    
     func fetchByRegions(regionName: String) {
         if regionName == "all" {
             countries.removeAll()

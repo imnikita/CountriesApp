@@ -19,11 +19,13 @@ class RegionCell: UITableViewCell {
         configureCollectionView()
     }
     
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureCollectionView() {
+    
+    private func configureCollectionView() {
         collectionView = UICollectionView(frame: contentView.bounds, collectionViewLayout: createThreeColumnFlowLayout(in: contentView))
         contentView.addSubview(collectionView)
         collectionView.fillSuperview()
@@ -32,12 +34,17 @@ class RegionCell: UITableViewCell {
         collectionView.backgroundColor = .systemBackground
         collectionView.register(RegionCollectionViewCell.self, forCellWithReuseIdentifier: RegionCollectionViewCell.reuseId)
     }
+    
 }
 
+// MARK: - UICollectionViewDelegate and UICollectionViewDataSource extensions
+
 extension RegionCell: UICollectionViewDelegate, UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         6
     }
+    
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RegionCollectionViewCell.reuseId, for: indexPath) as! RegionCollectionViewCell
@@ -51,8 +58,10 @@ extension RegionCell: UICollectionViewDelegate, UICollectionViewDataSource {
         return cell
     }
 
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let regionName = regions[indexPath.item].regionName.lowercased()
         callback?(regionName)
     }
+    
 }

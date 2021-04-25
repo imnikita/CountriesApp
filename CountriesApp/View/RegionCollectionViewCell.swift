@@ -16,15 +16,16 @@ class RegionCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-//        backgroundColor = .black
-        configure()
+        configureUI()
     }
+    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func configure() {
+    
+    private func configureUI() {
         addSubview(imageView)
         imageView.clipsToBounds = true
         imageView.backgroundColor = .systemGray5
@@ -44,20 +45,20 @@ class RegionCollectionViewCell: UICollectionViewCell {
 
 extension RegionCollectionViewCell {
     override var isSelected: Bool {
-       didSet{
-           if self.isSelected {
-               UIView.animate(withDuration: 0.3) {
+        didSet{
+            if self.isSelected {
+                UIView.animate(withDuration: 0.3) {
                     self.backgroundColor = UIColor(red: 115/255, green: 190/255, blue: 170/255, alpha: 1.0)
-                self.textLabel.textColor = .white
-               }
-           }
-           else {
-               UIView.animate(withDuration: 0.3) {
-                self.backgroundColor = .clear
-                self.textLabel.textColor = .black
-               }
-           }
-       }
-   }
+                    self.textLabel.textColor = .white
+                }
+            }
+            else {
+                UIView.animate(withDuration: 0.3) {
+                    self.backgroundColor = .clear
+                    self.textLabel.textColor = .black
+                }
+            }
+        }
+    }
     
 }
