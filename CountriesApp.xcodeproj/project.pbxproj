@@ -21,6 +21,7 @@
 		118D6736263074B70061A0F3 /* RegionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118D6735263074B70061A0F3 /* RegionCollectionViewCell.swift */; };
 		118D673A26309DB20061A0F3 /* CollectionViewLayoutHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118D673926309DB20061A0F3 /* CollectionViewLayoutHelpers.swift */; };
 		118D673D2630A9270061A0F3 /* Regions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118D673C2630A9270061A0F3 /* Regions.swift */; };
+		11ADA08326348F9E00FBF45D /* CountryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11ADA08226348F9E00FBF45D /* CountryVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		118D6735263074B70061A0F3 /* RegionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionCollectionViewCell.swift; sourceTree = "<group>"; };
 		118D673926309DB20061A0F3 /* CollectionViewLayoutHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewLayoutHelpers.swift; sourceTree = "<group>"; };
 		118D673C2630A9270061A0F3 /* Regions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Regions.swift; sourceTree = "<group>"; };
+		11ADA08226348F9E00FBF45D /* CountryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				118D672A263065120061A0F3 /* RegionsAndCountriesTableVC.swift */,
+				11ADA08226348F9E00FBF45D /* CountryVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -204,6 +207,7 @@
 				113D54F826319FE000FBEDF0 /* Countries.swift in Sources */,
 				118D670026304CEE0061A0F3 /* AppDelegate.swift in Sources */,
 				118D672B263065120061A0F3 /* RegionsAndCountriesTableVC.swift in Sources */,
+				11ADA08326348F9E00FBF45D /* CountryVC.swift in Sources */,
 				118D670226304CEE0061A0F3 /* SceneDelegate.swift in Sources */,
 				118D673326306A9A0061A0F3 /* RegionCell.swift in Sources */,
 				118D673D2630A9270061A0F3 /* Regions.swift in Sources */,

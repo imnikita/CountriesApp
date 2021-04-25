@@ -7,14 +7,11 @@
 
 import UIKit
 
-//protocol FetchRegionsDelegate {
-//    func fetchByRegions(regionName: String)
-//}
-
 
 class RegionsAndCountriesTableVC: UITableViewController {
     
     var countries = [Country]()
+    var regionName: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +25,6 @@ class RegionsAndCountriesTableVC: UITableViewController {
         super.viewWillAppear(animated)
         tableView.reloadData()
     }
-
 
     // MARK: - Table view data source
 
@@ -44,6 +40,7 @@ class RegionsAndCountriesTableVC: UITableViewController {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: RegionCell.reuseId, for: indexPath) as! RegionCell
             cell.callback = { regionName in
+                self.regionName = regionName
                 self.fetchByRegions(regionName: regionName)
                 tableView.reloadData()
             }
@@ -56,14 +53,20 @@ class RegionsAndCountriesTableVC: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        section == 0 ?  "Regions" : "Countries"
+        section == 0 ?  "Regions" : regionName?.uppercased() ?? "All countries"
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         indexPath.section == 0 ? 250 : 45
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = CountryVC()
+        vc.fetchCountry(countryName: countries[indexPath.row].name)
+        navigationController?.pushViewController(vc, animated: true)
+    }
 
-    // MARK: - FetchRequest
+    // MARK: - FetchRequests
     
     func fetchInitialData() {
         let url = "https://restcountries-v1.p.rapidapi.com/all/?rapidapi-key=3f9506a888msh18ac831a2e2504dp1efc50jsn740844e032dd"
@@ -82,14 +85,10 @@ class RegionsAndCountriesTableVC: UITableViewController {
             fetchInitialData()
         } else {
             countries.removeAll()
-            print(self.countries.count)
             let url = "https://restcountries-v1.p.rapidapi.com/region/\(regionName)/?rapidapi-key=3f9506a888msh18ac831a2e2504dp1efc50jsn740844e032dd"
             fetchGenericJSONData(urlString: url) { (countries: [Country]?, error) in
                 guard let safeCountriesByRegion = countries else { return }
                 self.countries = safeCountriesByRegion
-                print(self.countries.count)
-                print(self.countries)
-
                 DispatchQueue.main.async {
                     self.tableView.reloadSections(IndexSet(integer: 1), with: .right)
                 }
